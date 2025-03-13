@@ -1,24 +1,15 @@
-document.getElementById("questionForm").addEventListener("submit", async (e) => {
+document.getElementById('questionForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const question = document.getElementById("question").value;
+    const name = document.getElementById('name').value;
+    const question = document.getElementById('question').value;
 
-    const data = { name, question };
+    const response = await fetch('https://5ee9da2c-685b-43e4-a9cf-1969dc061a76-00-x553vvpxu9eu.pike.replit.dev/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, question })
+    });
 
-    try {
-        const response = await fetch("https://your-backend-url.com/send", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-            alert("Pertanyaan berhasil dikirim!");
-        } else {
-            alert("Gagal mengirim pertanyaan.");
-        }
-    } catch (error) {
-        alert("Terjadi kesalahan: " + error.message);
-    }
+    const result = await response.json();
+    alert(result.message);
 });
